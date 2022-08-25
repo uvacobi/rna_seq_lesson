@@ -1,10 +1,11 @@
 ---
 layout: page
-title: Calendar
+title: Schedule
 description: Listing of course modules and topics.
+nav_exclude: true
 ---
 
-# Calendar
+# Schedule
 
 {% for module in site.modules %}
 {{ module }}

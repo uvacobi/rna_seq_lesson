@@ -1,11 +1,11 @@
 ---
 layout: home
-title: Just the Class
+title: Introduction to RNA-seq analysis, Fall 2022
 nav_exclude: true
 permalink: index.html
 seo:
   type: Course
-  name: Just the Class
+  name: Introduction to RNA-seq analysis
 ---
 
 # Just the Class

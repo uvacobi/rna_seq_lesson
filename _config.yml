@@ -13,8 +13,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Just the Class
-tagline: A Jekyll template for course websites
+title: RNA-seq analysis
+tagline: Fall, 2022
 description: A modern, highly customizable, responsive Jekyll template for course websites
 author: Kevin Lin
 baseurl: '/rna_seq_lesson' # the subpath of your site, e.g. /blog
