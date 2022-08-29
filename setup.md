@@ -52,7 +52,7 @@ we get a help message from the aligner. Success!
 We have also installed the R packages we will need for this lesson in a directory "/project/bims6000/R". In order to tell R where to look for those packages, we will do the following on the command line (shell) 
 
 ```bash
-export R_LIBS=/project/bims6000
+export R_LIBS=/project/bims6000/R
 ```
 
 Now, we will use the modules to inform Rivanna that we want to use `R` version 4.1.1 by using the following command
