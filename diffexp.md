@@ -318,7 +318,12 @@ head(diff_genes)
 > Getting a list of differentially expressed genes means that you need to choose an __absolute__ threshold for the log2 fold change (column `log2FoldChange`) and the adjusted p-value (column `_padj_`). Therefore you can make different list of differential genes based on your selected thresholds. It is common to choose a log2 fold change threshold of |1| or |2| and an adjusted p-value of 0.01 for instance. 
 {: .callout}
 
-You could write this file on your disk with `write.csv()` for instance to save a comma-separated text file containing your results. 
+You could write this file on your disk with `write.csv()` for instance to save a comma-separated text file containing your results. Ideally, you should save the data-frame `all_genes_results` on your disk as well.
+
+~~~
+write.csv(all_genes_results, "all_genes.csv")
+~~~
+{: language-r}
 
 # 3. Volcano plot
 For each gene, this plot shows the gene fold change on the x-axis against the p-value plotted on the y-axis. 
