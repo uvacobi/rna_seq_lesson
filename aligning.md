@@ -78,7 +78,7 @@ In contrast to most tools, STAR does not have a help function. running STAR -h o
 Here are some examples of common used arguments.
 
 | argument |	meaning |
------------------------
+|----------|----------|
 | `--runThreads` |	number of threads |
 | `--genomeDir` | /path/to/genomeDir |
 | `--readFilesIn` |	/path/to/read1 [/path/to/read2] |
