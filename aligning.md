@@ -136,4 +136,7 @@ module load hisat2
 
 Just like with star the genome/chromosome needs to be indexed.
 
-hisat2-build -p 2 /project/bims6000/data/morning/AtChromosome1.fa AtChromosome1
+hisat2-build -p 2 /project/bims6000/data/morning/AtChromosome1.fa genomeIndex_hisat2/AtChromosome1
+~~~
+{: .language-bash}
+
