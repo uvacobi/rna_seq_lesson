@@ -189,3 +189,21 @@ cat */summary.txt > fastqc_summaries.txt
 ~~~
 {: .language-bash}
 
+# 3. Trimming and filtering
+
+Before we will do the alignment we need to remove sequences of low quality and sequences that are to short (below 25 bases). Also in this case we will trim down long sequences to 100 bases, quality of the Ion-torrent reads drops the further it gets. When making use of illumina reads this is not as much of a problem and 3’-trimming would then be a waste of data.
+
+The trimming and quality filtering will be done with trimmomatic. In the programm the following arguments can be used.
+
+| step              |	   meaning                          |
+|-------------------|-------------------------------------|
+| `SE` or `PE`      |	Reads are single end or paired end. |
+| `ILLUMINACLIP`    |	Perform adapter removal.             |
+| `SLIDINGWINDOW`   |	Perform sliding window trimming, cutting once the average quality within the window falls below a threshold. |
+| `LEADING`	        | Cut bases off the start of a read, if below a threshold quality. |
+| `TRAILING`	     | Cut bases off the end of a read, if below a threshold quality. |
+| `CROP`	           | Cut the read to a specified length. |
+| `HEADCROP`	     | Cut the specified number of bases from the start of the read. |
+| `MINLEN`	        | Drop an entire read if it is below a specified length. |
+| `TOPHRED33`	     | Convert quality scores to Phred-33. |
+| `TOPHRED64`	     | Convert quality scores to Phred-64. |
