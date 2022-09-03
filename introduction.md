@@ -207,3 +207,49 @@ The trimming and quality filtering will be done with trimmomatic. In the program
 | `MINLEN`	        | Drop an entire read if it is below a specified length. |
 | `TOPHRED33`	     | Convert quality scores to Phred-33. |
 | `TOPHRED64`	     | Convert quality scores to Phred-64. |
+
+~~~
+# Let's make a new directory named trimmed and load trimmomatic
+
+mkdir trimmed
+
+module load trimmomatic
+
+# To run trimmomatic on a single sample it looks something like this
+
+trimmomatic SE -phred33 -threads 1 /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz ~/trimmed/Arabidopsis_sample1_qc.fq ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+~~~
+{: .language-bash}
+
+Of course, we don’t want to do this for all the reads seperately so lets create a loop through all the fastq files.
+
+When doing the fastqc only input files needed to be specified. In this case both the input and a matching output filenames need to be given. this can be done with the help of ‘basename’
+
+~~~
+for infile in /project/bims6000/data/morning/*.fq.gz
+do
+ echo inputfile $infile
+ outfile="$(basename $infile .fq.gz)"_qc.fq
+ echo outputfile $outfile
+ echo
+done
+
+# Next we can start writing the trimmomatic loop. Again starting with a dry run with echo.
+
+for infile in /project/bims6000/data/morning/*.fq.gz
+do
+  outfile="$(basename $infile .fq.gz)"_qc.fq
+  echo "trimmomatic SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25"
+done
+
+# If it all looks ok, rerun with out echo
+
+for infile in /project/bims6000/data/morning/*.fq.gz
+do
+  outfile="$(basename $infile .fq.gz)"_qc.fq
+  trimmomatic SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+done
+~~~
+{: .language-bash}
+
+It’s possible to scroll up to check if the percentage of surviving & dropped is within the same range in all of the samples.
