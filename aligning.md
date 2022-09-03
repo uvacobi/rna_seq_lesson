@@ -92,3 +92,48 @@ Here are some examples of common used arguments.
 | `--outFilterMismatchNoverReadLmax` |	[default: 1.0] max fraction of mismatches read length |
 | `--alignEndsType` |	EndToEnd force end-to-end alignment, don’t soft-clip |
 
+~~~
+# For now we will be using STAR with the following arguments
+
+STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/Arabidopsis_sample1_qc.fq --outFileNamePrefix mapped/Arabidopsis_sample1_qc --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
+
+# Next we want to make a loop to do all the files
+
+# It’s good again to first start with a ‘dry’ run with the use of echo
+
+for infile in trimmed/*.fq
+ do
+   outfile="$(basename $infile .fq)"_
+   echo "STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All"
+ done
+ 
+ # If the commands look good, rerun but this time without the echo.
+ 
+ for infile in trimmed/*.fq
+ do
+   outfile="$(basename $infile .fq)"_
+   STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
+ done
+ 
+ # The final.out file contains all the characteristics of the alignment, resulting in a table containing all the alignment values.
+ 
+ less mapped/Arabidopsis_sample1_qc.final.out
+ ~~~
+ {: .language-bash}
+ 
+ ## 1.3 Align reads to reference genome using hisat2
+ 
+Alternatively it is possible to map the reads using hisat2. This tools works simular to star and gives a simular output. The commands are just a bit different. 
+ 
+~~~
+# Let's create a new genomeIndex and mapped directory and load hisat2
+
+mkdir mapped_hisat2
+
+mkdir genomeIndex_hisat2
+
+module load hisat2
+
+Just like with star the genome/chromosome needs to be indexed.
+
+hisat2-build -p 2 /project/bims6000/data/morning/AtChromosome1.fa AtChromosome1
