@@ -42,6 +42,10 @@ First, we need to make an output directory for the fastqc results to be stored. 
 # create a new directory
 mkdir fastqc
 
+# let's load fastqc
+
+module load fastqc
+
 # Running fastqc uses the following command
 
 fastqc -o /workspace/fastqc /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz
@@ -89,7 +93,7 @@ If you have Unix/Linux running on your local computer, you can execute the follo
 ~~~
 scp [uva_compute_id]@rivanna.hpc.virginia.edu:/home/[uva_compute_id]/fastqc/*.html ~
 
-#Enter your Netbadge password and the files will transfer to your local home directory.
+# Enter your Netbadge password and the files will transfer to your local home directory.
 ~~~
 {: .language-bash}
 
@@ -135,4 +139,53 @@ The next module explores numbers of duplicated sequences in the library. This pl
 
 The “Overrepresented sequences” table is another important module as it displays the sequences (at least 20 bp) that occur in more than 0.1% of the total number of sequences. This table aids in identifying contamination, such as vector or adapter sequences. If the %GC content was off in the above module, this table can help identify the source. If not listed as a known adapter or vector, it can help to BLAST the sequence to determine the identity.
 
+## 2.2 Working with the FastQC text output
+
+Now that we’ve looked at our HTML report to get a feel for the data, let’s look more closely at the other output files.
+
+~~~
+# Go back to your Unix terminal and cd into your fastqc folder
+
+cd fastqc
+
+ls
+~~~
+{: .language-bash}
+
+Our .zip files are compressed files. They each contain multiple different types of output files for a single input FASTQ file. To view the contents of a .zip file, we can use the program `unzip` to decompress these files.  `unzip` expects to get only one zip file as input. We could go through and unzip each file one at a time, but this is very time consuming and error-prone. Someday you may have 500 files to unzip!
+
+A more efficient way is to use a for loop like we learned in the Shell Genomics lesson to iterate through all of our .zip files. Let’s see what that looks like and then we’ll discuss what we’re doing with each line of our loop.
+
+~~~
+for filename in *.zip
+do
+ unzip $filename
+done
+~~~
+{: .language-bash}
+
+In this example, the input is four filenames (one filename for each of our `.zip` files). Each time the loop iterates, it will assign a file name to the variable `filename` and run the `unzip` command. The first time through the loop, `$filename` is `Arabidopsis_sample1_fastqc.zip`. The interpreter runs the command `unzip` on `Arabidopsis_sample1_fastqc.zip`. For the second iteration, `$filename` becomes `Arabidopsis_sample2_fastqc.zip`. This time, the shell runs `unzip` on `Arabidopsis_sample2_fastqc.zip`. It then repeats this process for the four other `.zip` files in our directory.
+
+The `unzip` program is decompressing the .zip files and creating a new directory (with subdirectories) for each of our samples, to store all of the different output that is produced by FastQC. There are a lot of files here. The one we’re going to focus on is the `summary.txt` file.
+
+If you list the files using `ls` in our directory now you will see a mix of files and directories.  The `.html` files and the uncompressed `.zip` files are still present, but now we also have a new directory for each of our samples. We can see for sure that it’s a directory if we use the `-F` flag for `ls`.
+
+~~~ 
+ls -F
+
+# Let’s see what files are present within one of these output directories.
+
+ls -F Arabidopsis_sample1_fastqc/
+
+# Use less to preview the summary.txt file for this sample.
+
+less Arabidopsis_sample1_fastqc/summary.txt
+
+# The summary file gives us a list of tests that FastQC ran, and tells us whether this sample passed, failed, or is borderline (WARN). Remember to quit from less you enter q.
+
+# We can make a record of the results we obtained for all our samples by concatenating all of our summary.txt files into a single file using the cat command. We’ll call this full_summaries.txt.
+
+cat */summary.txt > fastqc_summaries.txt
+~~~
+{: .language-bash}
 
