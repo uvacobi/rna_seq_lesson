@@ -126,7 +126,7 @@ for infile in trimmed/*.fq
 Alternatively it is possible to map the reads using hisat2. This tools works simular to star and gives a simular output. The commands are just a bit different. 
  
 ~~~
-# Let's create a new genomeIndex and mapped directory and load hisat2
+# Let's create a new genomeIndex and mapped directory and load hisat2 and samtools
 
 mkdir mapped_hisat2
 
@@ -134,9 +134,25 @@ mkdir genomeIndex_hisat2
 
 module load hisat2
 
+module load samtools
+
 Just like with star the genome/chromosome needs to be indexed.
 
 hisat2-build -p 2 /project/bims6000/data/morning/AtChromosome1.fa genomeIndex_hisat2/AtChromosome1
+
+# Mapping is done in two steps. Hisat2 produces the alignments, samtools is used to compress them and write them to a file.
+
+hisat2  -p 2 -x genomeIndex_hisat2/AtChromosome1 -U trimmed/Arabidopsis_sample1_qc.fq | samtools view -Sb -o ../mapped_hisat2/Arabidopsis_sample1.bam
+
+# Now let's write a loop to go through all the samples
+
+for fastq in trimmed/*.fq
+do
+  bam="$(basename $fastq _qc.fq)".bam
+  hisat2  -p 2 -x genomeIndex_hisat2/AtChromosome1 -U $fastq | samtools view -Sb -o ../mapped_hisat2/$bam
+> done
 ~~~
 {: .language-bash}
+
+
 
