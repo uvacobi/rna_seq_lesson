@@ -118,7 +118,7 @@ Answer: When a read multimaps (aligned to multiple positions in the genome), eac
 
 samtools view -Sb -F 4 -o Arabidopsis_sample1_mapped.bam Arabidopsis_sample1.bam
 
-In this command -Sb is needed to keep the file binairy(compressed), and -o specifies the output filename (a bam file again).
+# In this command -Sb is needed to keep the file binairy(compressed), and -o specifies the output filename (a bam file again).
 
 # Count the reads that align to the forward strand.
 
