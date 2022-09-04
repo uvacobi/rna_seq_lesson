@@ -34,7 +34,87 @@ We will make use of a published experimental dataset from a study made on the sm
 
 <img src="../assets/images/04-workflow-overview.png" width="400px" alt="workflow">
 
-# 1. Running FastQC
+# 1. The fastq format
+
+The first step in the RNA-Seq workflow is to take the FASTQ files received from the sequencing facility and assess the quality of the sequencing reads.
+
+The FASTQ file format is the defacto file format for sequence reads generated from next-generation sequencing technologies. This file format evolved from FASTA in that it contains sequence data, but also contains quality information. Similar to FASTA, the FASTQ file begins with a header line. The difference is that the FASTQ header is denoted by a `@` character. For a single record (sequence read) there are four lines, each of which are described below:
+
+| Line |	Description |
+|------|-------------|
+| 1 |	Always begins with ‘@’ and then information about the read |
+| 2 |	The actual DNA sequence |
+| 3 |	Always begins with a ‘+’ and sometimes the same info in line 1 |
+| 4 |	Has a string of characters which represent the quality scores; must have same number of characters as line 2 |
+
+## 1.1 A first peek at our FASTQ files
+
+Several sequencing files are available in the /datasets/ folder as it contains 4 fastq files. The files are generaly quite big (they usualy contain up to 40 milion reads), so it’s a smart thing to keep them zipped as they are.
+
+~~~
+# Let’s view the directory that contains the sequencing files (.fastq.gz) and other needed files e.g. genome reference sequence.
+
+ls /project/bims6000/data/morning/
+
+# zcat is a simular function as cat but works on zipped files. With the use of this function we can have a look at the files without having to unzip them.
+
+zcat /project/bims6000/data/morning/Arabidopsis_sample2.fq.gz | head -n 20
+
+# This will show the first 20 lines of the file, containing 5 reads.
+~~~
+{: .language-bash}
+
+Let’s have a close look at the first read of this sample:
+
+~~~
+@ERR1406259.27450842
+CATCGCTGAAGATCTGTGAACCAGCCTTGAACCAAACTGCCTCTCCAAACTTGACTCCGTTCCTGGCCAAAAGCTCAGGGAAGACGCAGCCTAGGGCTCCG
++
+?ABEEEDCBFEDGHFJFJIHFEFCC=>BEC>FJ@GHCHBHCGFJHG;:F<AI;90F=E44:8FA>@8C;;33237-?84(>*$A#$#/B.5)->0%/8D=;
+~~~
+{: .output}
+
+As mentioned previously, line 4 has characters encoding the quality of each nucleotide in the read. The legend below provides the mapping of quality scores (Phred-33) to the quality encoding characters. **Different quality encoding scales exist (differing by offset in the ASCII table), but note the most commonly used one is fastqsanger**
+
+~~~
+Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+                   |         |         |         |         |
+    Quality score: 0........10........20........30........40
+~~~    
+{: .output}
+
+Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 30. The second base (A) has a quality of 32, etc.
+
+Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and is calculated as:
+
+$Q=−10 \times log_{10}(P)$
+
+where $P$ is the probability that a base call is erroneous.
+
+These probability values are the results from the base calling algorithm and dependent on how much signal was captured for the base incorporation. The score values can be interpreted as follows:
+
+| Phred Quality Score |	Probability of incorrect base call | Base call accuracy |
+| 10 | 1 in 10 | 90% |
+| 20 | 1 in 100 | 99% |
+| 30 | 1 in 1000 | 99.9% |
+| 40 | 1 in 10,000 |	99.99% |
+
+Therefore, for the first nucleotide in the read (C), there is a 1 in 1000 chance that the base was called incorrectly. Also you can see that the second half of the read contains a lot of bases that have a more then 10% probabaility that the base is called incorrectly.
+
+Question: How many reads do these samples contain?
+
+~~~
+# Answer: To get the number of reads, get the number of lines and divide by 4.
+
+zcat /project/bims6000/data/morning/Arabidopsis_sample2.fq.gz | wc -l
+
+# This gives 1,000,000 lines -> 250,000 reads.
+~~~
+{: .language-bash}
+
+# 2. Quality control of FASTQ files
+
+## 2.1. Running FastQC
 
 We will create the quality reports of the reads that were downloaded.
 
@@ -82,7 +162,7 @@ fastqc -h
 ~~~
 {: .language-bash}
 
-# 2. Viewing the FastQC results
+## 2.2. Viewing the FastQC results
 
 For each of the samples there are two files. a .html and a .zip
 
@@ -107,7 +187,7 @@ Click on Files -> Home Directory and drag and drop the fastqc folder to your loc
 
 Open Arabidopsis_sample1_fastqc.html by clicking on it.  It should show up on your default browser.
 
-## 2.1 Decoding the FastQC outputs
+## 2.3 Decoding the FastQC outputs
 
 Upon opening the file Below we have provided a brief overview of interpretations for each of these plots. It’s important to keep in mind Now that we have run FASTQC and downloaded the report, we can take a look at the metrics and assess the quality of our sequencing data!
 
@@ -143,7 +223,7 @@ The next module explores numbers of duplicated sequences in the library. This pl
 
 The “Overrepresented sequences” table is another important module as it displays the sequences (at least 20 bp) that occur in more than 0.1% of the total number of sequences. This table aids in identifying contamination, such as vector or adapter sequences. If the %GC content was off in the above module, this table can help identify the source. If not listed as a known adapter or vector, it can help to BLAST the sequence to determine the identity.
 
-## 2.2 Working with the FastQC text output
+## 2.4 Working with the FastQC text output
 
 Now that we’ve looked at our HTML report to get a feel for the data, let’s look more closely at the other output files.
 
