@@ -54,7 +54,7 @@ Like many Unix commands, `samtools` commands follow a stream model, where data r
 
 ## 2.1 SAMtools commands
 
-SAMtools provides the following commands, each invoked as “samtools some_command”.
+SAMtools provides the following commands (in **bold**), each invoked as “samtools some_command”.
 
 - **view** 
 The view command filters SAM or BAM formatted data. Using options and arguments it understands what data to select (possibly all of it) and passes only that data through. Input is usually a sam or bam file specified as an argument, but could be sam or bam data piped from any other command. Possible uses include extracting a subset of data into a new file, converting between BAM and SAM formats, and just looking at the raw file contents. The order of extracted reads is preserved.
