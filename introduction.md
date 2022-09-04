@@ -94,6 +94,7 @@ where $P$ is the probability that a base call is erroneous.
 These probability values are the results from the base calling algorithm and dependent on how much signal was captured for the base incorporation. The score values can be interpreted as follows:
 
 | Phred Quality Score |	Probability of incorrect base call | Base call accuracy |
+|---------------------|------------------------------------|--------------------|
 | 10 | 1 in 10 | 90% |
 | 20 | 1 in 100 | 99% |
 | 30 | 1 in 1000 | 99.9% |
