@@ -152,5 +152,29 @@ samtools view Arabidopsis_sample1.bam | grep "XM:i:0" | wc -l
 ~~~
 {: .language-bash}
 
+# 3. Creating the counts file
 
+For downstream applications e.g. differential expression analysis, the number of reads that maps within a gene has to be determined for each sample.
 
+The `featureCounts` program from the Subread package can do this. The complete user guide is available here and `featureCounts` is in section 6.2.
+
+`featureCounts` can…count (!) the number of reads that map within a feature. The Arabidopsis genome annotation in the GFF3 format contain three different features to choose from.
+
+Depending on the downstream applications the choice is `gene`, `transcript` or `exon`. In this study we are just looking for differentially expressed genes so our feature of interest specified by the `-t` will be `gene`.
+
+~~~
+# Let's use featureCounts to count the reads in genes.
+
+featureCounts -O -t gene -g ID -a /project/bims6000/data/morning/ath_annotation.gff3 -o counts.txt mapped/*.bam
+~~~
+{: .language-bash}
+
+Here is an explanation of the different arguments used:
+
+- `-a <string>`: Name of an annotation file. GTF/GFF format by default.
+- `-o <string>`: Name of the output file including read counts.
+- `-O`: Assign reads to all their overlapping meta-features.
+- `-t <string>`: Specify feature type in the GTF/GFF annotation to summarise the counts.
+- `-g <string>`: Specify attribute type in GTF/GFF annotation. This GTF/GFF determines the name of the features.
+
+The output file `counts.txt` produced by featureCounts is a tab-delimited file that can be opened in a spreadsheet program like Excel.
