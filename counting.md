@@ -34,3 +34,14 @@ Additionally tags (or attribute) can be aded to each of of the lines. These tags
 | XS:i | Suboptimal alignment score |
 | XF:i | Support from forward/reverse alignment |
 |XE:i  | Number of supporting seeds |
+
+To start of we’ll have a look at how to use samtools to have a peak at the the contents of the bam files.
+
+As these file are binary you can not simply use:
+
+~~~
+head Arabidopsis_sample1.bam 
+~~~
+{: .language-bash}
+
+This will give an unreadable result. SAMtools can help us to make the content readable.
