@@ -32,6 +32,8 @@ We will make use of a published experimental dataset from a study made on the sm
 - A commensal (“neutral”) bacteria called Methylobacterium extorquens strain PA1.
 - A commensal (“neutral”) bacteria called Sphingomonas melonis strain Fr1.
 
+<img src="../assets/images/04-workflow-overview.png" width="400px" alt="workflow">
+
 # 1. Running FastQC
 
 We will create the quality reports of the reads that were downloaded.
