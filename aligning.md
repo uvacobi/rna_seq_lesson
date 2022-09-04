@@ -8,6 +8,8 @@ mathjax: true
 
 # 1. Alignment to a reference genome
 
+<img src="../assets/images/RNAseqWorkflow.png" width="400px" alt="rnaseq_workflow">
+
 We perform read alignment or mapping to determine where in the genome our reads originated from. There are a number of tools to choose from and, while there is no gold standard, there are some tools that are better suited for particular NGS analyses. In this tutorial we will be using STAR but also a tool like hisat2 does the job.
 
 ## STAR Alignment Strategy
@@ -18,21 +20,31 @@ Seed searching Clustering, stitching, and scoring Seed searching
 
 For every read that STAR aligns, STAR will search for the longest sequence that exactly matches one or more locations on the reference genome. These longest matching sequences are called the Maximal Mappable Prefixes (MMPs):
 
+<img src="../assets/images/alignment_STAR_step1.png" width="400px" alt="alignment_star1">
+
 The different parts of the read that are mapped separately are called ‘seeds’. So the first MMP that is mapped to the genome is called seed1.
 
 STAR will then search again for only the unmapped portion of the read to find the next longest sequence that exactly matches the reference genome, or the next MMP, which will be seed2.
+
+<img src="../assets/images/alignment_STAR_step2.png" width="400px" alt="alignment_star2">
 
 This sequential searching of only the unmapped portions of reads underlies the efficiency of the STAR algorithm. STAR uses an uncompressed suffix array (SA) to efficiently search for the MMPs, this allows for quick searching against even the largest reference genomes. Other slower aligners use algorithms that often search for the entire read sequence before splitting reads and performing iterative rounds of mapping.
 
 If STAR does not find an exact matching sequence for each part of the read due to mismatches or indels, the previous MMPs will be extended.
 
+<img src="../assets/images/alignment_STAR_step3.png" width="400px" alt="alignment_star3">
+
 If extension does not give a good alignment, then the poor quality or adapter sequence (or other contaminating sequence) will be soft clipped.
+
+<img src="../assets/images/alignment_STAR_step4.png" width="400px" alt="alignment_star4">
 
 ## Clustering, stitching, and scoring
 
 The separate seeds are stitched together to create a complete read by first clustering the seeds together based on proximity to a set of ‘anchor’ seeds, or seeds that are not multi-mapping.
 
 Then the seeds are stitched together based on the best alignment for the read (scoring based on mismatches, indels, gaps, etc.).
+
+<img src="../assets/images/alignment_STAR_step5.png" width="400px" alt="alignment_star5">
 
 ## The alignment process consists of two steps:
 
