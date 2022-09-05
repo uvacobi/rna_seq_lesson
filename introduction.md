@@ -293,6 +293,10 @@ less Arabidopsis_sample1_fastqc/summary.txt
 # We can make a record of the results we obtained for all our samples by concatenating all of our summary.txt files into a single file using the cat command. We’ll call this full_summaries.txt.
 
 cat */summary.txt > fastqc_summaries.txt
+
+# Let's cd back to our home dirctory
+
+cd ~/
 ~~~
 {: .language-bash}
 
