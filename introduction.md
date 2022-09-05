@@ -131,7 +131,7 @@ module load fastqc
 
 # Running fastqc uses the following command
 
-fastqc -o /workspace/fastqc /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz
+fastqc -o fastqc /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz
 
 # Of course we don’t want to do this for all the samples seperately so we can loop through the list of samples and run them all sequentially. Using echo, you can start off with a “dry run”:
 
