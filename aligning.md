@@ -128,8 +128,8 @@ do
 done
  
 # The final.out file contains all the characteristics of the alignment, resulting in a table containing all the alignment values.
- 
-less mapped/Arabidopsis_sample1_qc.final.out
+
+less mapped/Arabidopsis_sample1_qcLog.final.out
 ~~~
 {: .language-bash}
  
