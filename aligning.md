@@ -144,6 +144,12 @@ mkdir mapped_hisat2
 
 mkdir genomeIndex_hisat2
 
+module spider hisat2
+
+# You will see that you have to load gcc/9.2.0 first before loading hisat2
+
+module load gcc/9.2.0
+
 module load hisat2
 
 module load samtools
@@ -154,17 +160,24 @@ hisat2-build -p 2 /project/bims6000/data/morning/AtChromosome1.fa genomeIndex_hi
 
 # Mapping is done in two steps. Hisat2 produces the alignments, samtools is used to compress them and write them to a file.
 
-hisat2  -p 2 -x genomeIndex_hisat2/AtChromosome1 -U trimmed/Arabidopsis_sample1_qc.fq | samtools view -Sb -o ../mapped_hisat2/Arabidopsis_sample1.bam
+hisat2 -p 2 -x genomeIndex_hisat2/AtChromosome1 -U trimmed/Arabidopsis_sample1_qc.fq | samtools view -Sb -o mapped_hisat2/Arabidopsis_sample1.bam
+
+# Let's perform a dry run of a for loop version of this with echo
+
+for fastq in trimmed/*.fq
+do
+  bam="$(basename $fastq _qc.fq)".bam
+  echo "hisat2 -p 2 -x genomeIndex_hisat2/AtChromosome1 -U $fastq | samtools view -Sb -o mapped_hisat2/$bam"
+done
 
 # Now let's write a loop to go through all the samples
 
 for fastq in trimmed/*.fq
 do
   bam="$(basename $fastq _qc.fq)".bam
-  hisat2  -p 2 -x genomeIndex_hisat2/AtChromosome1 -U $fastq | samtools view -Sb -o ../mapped_hisat2/$bam
+  hisat2 -p 2 -x genomeIndex_hisat2/AtChromosome1 -U $fastq | samtools view -Sb -o mapped_hisat2/$bam
 done
 ~~~
 {: .language-bash}
 
-
-
+If you scroll up, you can look to see if the alignment rates are similar across samples.
