@@ -182,7 +182,7 @@ scp -r [uva_compute_id]@rivanna.hpc.virginia.edu:/home/[uva_compute_id]/fastqc ~
 
 If you're running Windows, you can also use `scp` within MobaXterm or PuTTY to transfer the files.
 
-Or, you can go to the following site: https://rivanna-portal.hpc.virginia.edu/pun/sys/dashboard
+Or, you can go to the following [site](https://rivanna-portal.hpc.virginia.edu/pun/sys/dashboard).
 
 Click on Files -> Home Directory and drag and drop the fastqc folder to your local computer.
 
@@ -206,18 +206,21 @@ Upon opening the file Below we have provided a brief overview of interpretations
 
 - Sequence Duplication Levels: A distribution of duplicated sequences. In sequencing, we expect most reads to only occur once. If some sequences are occurring more than once, it might indicate enrichment bias (e.g. from PCR). If the samples are high coverage (or RNA-seq or amplicon), this might not be true.
 - Overrepresented sequences: A list of sequences that occur more frequently than would be expected by chance.
+- Adapter Content: a graph indicating where adapater sequences occur in the reads.
 
 <img src="../assets/images/fastqc8.png" width="400px" alt="fastqc8">
 
-- Adapter Content: a graph indicating where adapater sequences occur in the reads.
+- Kmer Content: a graph showing over represented kmers as a function of their position in the reads.
 
 <img src="../assets/images/fastqc9.png" width="400px" alt="fastqc9">
 
-FastQC has a really well documented manual page with detailed explanations about every plot in the report.
+FastQC has a really well documented [manual page](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [detailed explanations](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about every plot in the report.
 
 Within our report, a summary of all of the modules is given on the left-hand side of the report. Don’t take the yellow “WARNING”s and red “FAIL”s too seriously; they should be interpreted as flags for modules to check out.
 
 <img src="../assets/images/fastqc_summary.png" width="400px" alt="fastqc_summary">
+
+Does this summary differ from that for sample1?  If so, how?
 
 The first module gives the basic statistics for the sample. Generally it is a good idea to keep track of the total number of reads sequenced for each sample and to make sure the read length and %GC content is as expected.
 
