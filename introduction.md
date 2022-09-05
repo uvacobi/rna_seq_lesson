@@ -174,9 +174,9 @@ Instead, we have to transfer the html files to our local computer and visualize 
 If you have Unix/Linux running on your local computer, you can execute the following command:
 
 ~~~
-scp [uva_compute_id]@rivanna.hpc.virginia.edu:/home/[uva_compute_id]/fastqc/*.html ~
+scp -r [uva_compute_id]@rivanna.hpc.virginia.edu:/home/[uva_compute_id]/fastqc ~
 
-# Enter your Netbadge password and the files will transfer to your local home directory.
+# Enter your Netbadge password and the fastqc directory and files contained in it will transfer to your local home directory.
 ~~~
 {: .language-bash}
 
