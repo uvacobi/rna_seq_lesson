@@ -197,10 +197,21 @@ Upon opening the file Below we have provided a brief overview of interpretations
 - Per base sequence content: plots the proportion of each base position over all of the reads. Typically, we expect to see each base roughly 25% of the time at each position, but this often fails at the beginning or end of the read due to quality or adapter content.
 - Per sequence GC content: a density plot of average GC content in each of the reads.
 - Per base N content: the percent of times that ‘N’ occurs at a position in all reads. If there is an increase at a particular position, this might indicate that something went wrong during sequencing.
+
+<img src="../assets/images/fastqc5.png" width="400px" alt="fastqc5">
+
 - Sequence Length Distribution: the distribution of sequence lengths of all reads in the file. If the data is raw, there is often on sharp peak, however if the reads have been trimmed, there may be a distribution of shorter lengths.
+
+<img src="../assets/images/fastqc6.png" width="400px" alt="fastqc6">
+
 - Sequence Duplication Levels: A distribution of duplicated sequences. In sequencing, we expect most reads to only occur once. If some sequences are occurring more than once, it might indicate enrichment bias (e.g. from PCR). If the samples are high coverage (or RNA-seq or amplicon), this might not be true.
 - Overrepresented sequences: A list of sequences that occur more frequently than would be expected by chance.
+
+<img src="../assets/images/fastqc8.png" width="400px" alt="fastqc8">
+
 - Adapter Content: a graph indicating where adapater sequences occur in the reads.
+
+<img src="../assets/images/fastqc9.png" width="400px" alt="fastqc9">
 
 FastQC has a really well documented manual page with detailed explanations about every plot in the report.
 
@@ -212,15 +223,23 @@ The first module gives the basic statistics for the sample. Generally it is a go
 
 One of the most important analysis modules is the “Per base sequence quality” plot. This plot provides the distribution of quality scores at each position in the read across all reads. This plot can alert us to whether there were any problems occuring during sequencing and whether we might need to contact the sequencing facility.
 
+<img src="../assets/images/fastqc1.png" width="400px" alt="fastqc1">
+
 The “Per sequence quality scores” plot gives you the average quality score on the x-axis and the number of sequences with that average on the y-axis. We hope the majority of our reads have a high average quality score with no large bumps at the lower quality values.
+
+<img src="../assets/images/fastqc2.png" width="400px" alt="fastqc2">
 
 The next plot gives the “Per base sequence content”, which always gives a FAIL for RNA-seq data. This is because the first 10-12 bases result from the ‘random’ hexamer priming that occurs during RNA-seq library preparation. This priming is not as random as we might hope giving an enrichment in particular bases for these intial nucleotides.
 
+<img src="../assets/images/fastqc3.png" width="400px" alt="fastqc3">
+
 The “Per sequence GC content” plot gives the GC distribution over all sequences. Generally is a good idea to note whether the GC content of the central peak corresponds to the expected % GC for the organism. Also, the distribution should be normal unless over-represented sequences (sharp peaks on a normal distribution) or contamination with another organism (broad peak).
 
-This plot would indicate some type of over-represented sequence with the sharp peaks, indicating either contamination or a highly over-expressed gene.
+<img src="../assets/images/fastqc4.png" width="400px" alt="fastqc4">
 
 The next module explores numbers of duplicated sequences in the library. This plot can help identify a low complexity library, which could result from too many cycles of PCR amplification or too little starting material. For RNA-seq we don’t normally do anything to address this in the analysis, but if this were a pilot experiment, we might adjust the number of PCR cycles, amount of input, or amount of sequencing for future libraries. In this analysis we seem to have a large number of duplicated sequences, but this is can be expected due to the multiple copies of mRNA being duplicates.
+
+<img src="../assets/images/fastqc7.png" width="400px" alt="fastqc7">
 
 The “Overrepresented sequences” table is another important module as it displays the sequences (at least 20 bp) that occur in more than 0.1% of the total number of sequences. This table aids in identifying contamination, such as vector or adapter sequences. If the %GC content was off in the above module, this table can help identify the source. If not listed as a known adapter or vector, it can help to BLAST the sequence to determine the identity.
 
