@@ -32,9 +32,9 @@ After completing this lesson, you should be able to:
 
 |     | Setup |     | 
 | --- | ---   | --- |
-| 09:00 - 10:00 | [Introduction & QC]({{ site.baseurl }}{% link introduction.md %}) | What can I learn by doing this RNA-Seq lesson?<br>What are the tools that I will be using?<br>How do I perform a quality check of my RNA-seq fastq files with FastQC?<br>How can I remove RNA-seq reads of low quality?  |
-| 10:00 - 11:00 | [Aligning]({{ site.baseurl }}{% link aligning.md %}) | How do I align my reads to a reference genome using STAR?<br>What is a BAM file?<br>How to use IGV, an interactive genome browser? | 
-| 11:00 - 11:45 | [Counting]({{ site.baseurl }}{% link counting.md %})  | How do I determine the number of reads that maps within a gene? |
+| 09:00 - 10:00 | [Introduction & QC]({{ site.baseurl }}{% link introduction.md %}) | What can I learn by doing this RNA-Seq lesson?<br>What are the tools that I will be using?<br>How do I perform a quality check of my RNA-seq fastq files with FastQC?<br>How can I remove RNA-seq reads of low quality? |
+| 10:00 - 11:00 | [Aligning]({{ site.baseurl }}{% link aligning.md %}) | How do I align my reads to a reference genome using STAR and hisat2? | 
+| 11:00 - 11:45 | [Counting]({{ site.baseurl }}{% link counting.md %})  | What is a BAM file?<br>How do I determine the number of reads that map within genes? |
 | 1:00 - 2:00  | [Differential expression]({{ site.baseurl }}{% link diffexp.md %}) | How do I know that my RNA-seq experiment has worked according to my experimental design?<br>What is a Principal Component Analysis (PCA) and how can I use it?<br>What are factor levels and why is it important for different expression analysis?<br>How can I call the genes differentially regulated in response to my experimental design?<br>What is a volcano plot and how can I create one?<br>What is a heatmap and how can it be informative for my comparison of interest? |
 | 2:00 - 3:00 | [Over-representation analysis]({{ site.baseurl }}{% link ora.md %}) | Given a list of differentially expressed genes, how do I search for enriched functions? |
 | 3:00 - 3:45 | [Gene set enrichment]({{ site.baseurl }}{% link gsea.md %}) | What is the difference between an over-representation analysis (ORA) and a gene set enrichment analysis (GSEA)? |
