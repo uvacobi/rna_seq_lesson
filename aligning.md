@@ -10,7 +10,7 @@ mathjax: true
 
 <img src="../assets/images/RNAseqWorkflow.png" width="400px" alt="rnaseq_workflow">
 
-We perform read alignment or mapping to determine where in the genome our reads originated from. There are a number of tools to choose from and, while there is no gold standard, there are some tools that are better suited for particular NGS analyses. In this tutorial we will be using STAR but also a tool like hisat2 does the job.
+We perform read alignment or mapping to determine where in the genome our reads originated from. There are a number of tools to choose from and, while there is no gold standard, there are some tools that are better suited for particular NGS analyses. In this tutorial we will be using [STAR](https://physiology.med.cornell.edu/faculty/skrabanek/lab/angsd/lecture_notes/STARmanual.pdf) but also a tool like [hisat2](https://daehwankimlab.github.io/hisat2/) does the job.
 
 ## STAR Alignment Strategy
 
@@ -48,8 +48,8 @@ Then the seeds are stitched together based on the best alignment for the read (s
 
 ## The alignment process consists of two steps:
 
-Indexing the reference genome
-Aligning the reads to the reference genome
+- Indexing the reference genome
+- Aligning the reads to the reference genome
 
 ## 1.1 Index the reference genome
 
@@ -64,7 +64,7 @@ mkdir genomeIndex
 
 module load star
 
-star --runMode genomeGenerate --genomeDir genomeIndex --genomeFastaFiles /project/bims6000/data/morning/AtChromosome1.fa --runThreadN 2
+STAR --runMode genomeGenerate --genomeDir genomeIndex --genomeFastaFiles /project/bims6000/data/morning/AtChromosome1.fa --runThreadN 2
 
 # The indexing should have produced 8 star index files. Use the following command to see if they’re really there.
 
