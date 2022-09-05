@@ -124,7 +124,7 @@ done
 for infile in trimmed/*.fq
 do
   outfile="$(basename $infile .fq)"
-  STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn $infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate -outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
+  STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn $infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
 done
  
 # The final.out file contains all the characteristics of the alignment, resulting in a table containing all the alignment values.
