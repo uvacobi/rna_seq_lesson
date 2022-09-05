@@ -125,15 +125,15 @@ for infile in trimmed/*.fq
  do
    outfile="$(basename $infile .fq)"_
    STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
- done
+done
  
- # The final.out file contains all the characteristics of the alignment, resulting in a table containing all the alignment values.
+# The final.out file contains all the characteristics of the alignment, resulting in a table containing all the alignment values.
  
- less mapped/Arabidopsis_sample1_qc.final.out
- ~~~
- {: .language-bash}
+less mapped/Arabidopsis_sample1_qc.final.out
+~~~
+{: .language-bash}
  
- ## 1.3 Align reads to reference genome using hisat2
+## 1.3 Align reads to reference genome using hisat2
  
 Alternatively it is possible to map the reads using hisat2. This tools works simular to star and gives a simular output. The commands are just a bit different. 
  
@@ -162,7 +162,7 @@ for fastq in trimmed/*.fq
 do
   bam="$(basename $fastq _qc.fq)".bam
   hisat2  -p 2 -x genomeIndex_hisat2/AtChromosome1 -U $fastq | samtools view -Sb -o ../mapped_hisat2/$bam
-> done
+done
 ~~~
 {: .language-bash}
 
