@@ -114,17 +114,17 @@ STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/Arabidopsis_sa
 # It’s good again to first start with a ‘dry’ run with the use of echo
 
 for infile in trimmed/*.fq
- do
-   outfile="$(basename $infile .fq)"_
-   echo "STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All"
- done
+do
+  outfile="$(basename $infile .fq)"_
+  echo "STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All"
+done
  
- # If the commands look good, rerun but this time without the echo.
+# If the commands look good, rerun but this time without the echo.
  
- for infile in trimmed/*.fq
- do
-   outfile="$(basename $infile .fq)"_
-   STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
+for infile in trimmed/*.fq
+do
+  outfile="$(basename $infile .fq)"_
+  STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate -outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
 done
  
 # The final.out file contains all the characteristics of the alignment, resulting in a table containing all the alignment values.
