@@ -326,9 +326,11 @@ mkdir trimmed
 
 module load trimmomatic
 
+# You will see the following instruction: To execute trimmomatic run: java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar
+
 # To run trimmomatic on a single sample it looks something like this
 
-trimmomatic SE -phred33 -threads 1 /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz ~/trimmed/Arabidopsis_sample1_qc.fq ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 1 /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz ~/trimmed/Arabidopsis_sample1_qc.fq ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
 ~~~
 {: .language-bash}
 
@@ -350,7 +352,7 @@ done
 for infile in /project/bims6000/data/morning/*.fq.gz
 do
   outfile="$(basename $infile .fq.gz)"_qc.fq
-  echo "trimmomatic SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25"
+  echo "java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25"
 done
 
 # If it all looks ok, rerun with out echo
@@ -358,7 +360,7 @@ done
 for infile in /project/bims6000/data/morning/*.fq.gz
 do
   outfile="$(basename $infile .fq.gz)"_qc.fq
-  trimmomatic SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+  java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
 done
 ~~~
 {: .language-bash}
