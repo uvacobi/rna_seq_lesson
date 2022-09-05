@@ -115,7 +115,7 @@ STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/Arabidopsis_sa
 
 for infile in trimmed/*.fq
 do
-  outfile="$(basename $infile .fq)"_qc
+  outfile="$(basename $infile .fq)"
   echo "STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate --outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All"
 done
  
@@ -123,7 +123,7 @@ done
  
 for infile in trimmed/*.fq
 do
-  outfile="$(basename $infile .fq)"_qc
+  outfile="$(basename $infile .fq)"
   STAR --genomeDir genomeIndex --runThreadN 2 --readFilesIn trimmed/$infile --outFileNamePrefix mapped/$outfile --outSAMtype BAM SortedByCoordinate -outSAMunmapped None --outFilterMismatchNmax 3 --outFilterMultimapNmax 1 --outSAMattributes All
 done
  
