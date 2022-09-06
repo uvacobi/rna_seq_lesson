@@ -7,13 +7,13 @@ mathjax: true
 ---
 
 # 1. The SAM/BAM format
-SAM files, are tab-delimited text files that contain information for each individual read and its alignment to the genome. While we do not have time to go in detail of the features of the SAM format, the paper by Heng Li et al. provides a lot more detail on the specification.
+[SAM](https://github.com/adamfreedman/knowyourdata-genomics/blob/gh-pages/lessons/01-know_your_data.md#aligned-reads-sam) files, are tab-delimited text files that contain information for each individual read and its alignment to the genome. While we do not have time to go in detail of the features of the SAM format, the paper by [Heng Li et al.](https://academic.oup.com/bioinformatics/article/25/16/2078/204688) provides a lot more detail on the specification.
 
-The compressed binary version of SAM is called a BAM file. We use this version to reduce size and to allow for indexing, which enables efficient random access of the data contained within the file.
+The compressed binary version of SAM is called a BAM file. We use this version to reduce size and to allow for *indexing*, which enables efficient random access of the data contained within the file.
 
 ## 1.1 What’s in a SAM/BAM file
 
-The file begins with a header, which is optional. The header is used to describe source of data, reference sequence, method of alignment, etc., this will change depending on the aligner being used. Following the header is the alignment section. Each line that follows corresponds to alignment information for a single read. Each alignment line has 11 mandatory fields for essential mapping information and a variable number of other fields for aligner specific information. An example entry from a SAM file is displayed below with the different fields highlighted.
+The file begins with a **header**, which is optional. The header is used to describe source of data, reference sequence, method of alignment, etc., this will change depending on the aligner being used. Following the header is the **alignment section**. Each line that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields** for essential mapping information and a variable number of other fields for aligner specific information. An example entry from a SAM file is displayed below with the different fields highlighted.
 
 <img src="../assets/images/sam_bam_1.png" width="400px" alt="alignment_star1">
 
@@ -62,7 +62,7 @@ SAMtools provides the following commands (in **bold**), each invoked as “samto
 The view command filters SAM or BAM formatted data. Using options and arguments it understands what data to select (possibly all of it) and passes only that data through. Input is usually a sam or bam file specified as an argument, but could be sam or bam data piped from any other command. Possible uses include extracting a subset of data into a new file, converting between BAM and SAM formats, and just looking at the raw file contents. The order of extracted reads is preserved.
 
 - **sort**
-The sort command sorts a BAM file based on its position in the reference, as determined by its alignment. The element + coordinate in the reference that the first matched base in the read aligns to is used as the key to order it by. [TODO: verify]. The sorted output is dumped to a new file by default, although it can be directed to stdout (using the -o option). As sorting is memory intensive and BAM files can be large, this command supports a sectioning mode (with the -m options) to use at most a given amount of memory and generate multiple output file. These files can then be merged to produce a complete sorted BAM file [TODO - investigate the details of this more carefully].
+The sort command sorts a BAM file based on its position in the reference, as determined by its alignment. The element + coordinate in the reference that the first matched base in the read aligns to is used as the key to order it by. [TODO: verify]. The sorted output is dumped to a new file by default, although it can be directed to stdout (using the -o option). As sorting is memory intensive and BAM files can be large, this command supports a sectioning mode (with the -m options) to use at most a given amount of memory and generate multiple output file. These files can then be merged to produce a complete sorted BAM file.
 
 - **index**
 The index command creates a new index file that allows fast look-up of data in a (sorted) SAM or BAM. Like an index on a database, the generated \*.sam.sai or \*.bam.bai file allows programs that can read it to more efficiently work with the data in the associated files.
@@ -78,6 +78,10 @@ Counts the number of alignments for each FLAG type.
 Looking at the content of the file using samtools view:
 
 ~~~
+# Let's cd into the mapped_hisat2 directory first
+
+cd mapped_hisat2
+
 samtools view Arabidopsis_sample1.bam | head
 ~~~
 {: .language-bash}
@@ -91,11 +95,11 @@ SAMtools view can be used to filter the alignment based on characters like mappi
 ~~~
 # Count the total number of records.
 
-samtools view -c Arabidopsis_sample1.bam
+samtools view -c Arabidopsis_sample1.bam 
 
 # Count with flagstat for additional information.
 
-samtools flagstat arabidopsis1.bam
+samtools flagstat Arabidopsis_sample1.bam
 
 # Count the records using the FLAG argument. Count the alignments that don’t align.
 
@@ -158,16 +162,20 @@ samtools view Arabidopsis_sample1.bam | grep "XM:i:0" | wc -l
 
 For downstream applications e.g. differential expression analysis, the number of reads that maps within a gene has to be determined for each sample.
 
-The `featureCounts` program from the Subread package can do this. The complete user guide is available here and `featureCounts` is in section 6.2.
+The `featureCounts` program from the [Subread](http://subread.sourceforge.net/) package can do this. The complete user guide is available here and `featureCounts` is in section 6.2.
 
 `featureCounts` can…count (!) the number of reads that map within a feature. The Arabidopsis genome annotation in the GFF3 format contain three different features to choose from.
 
 Depending on the downstream applications the choice is `gene`, `transcript` or `exon`. In this study we are just looking for differentially expressed genes so our feature of interest specified by the `-t` will be `gene`.
 
 ~~~
-# Let's use featureCounts to count the reads in genes.
+# Let's cd back into our home directory
 
-featureCounts -O -t gene -g ID -a /project/bims6000/data/morning/ath_annotation.gff3 -o counts.txt mapped/*.bam
+cd ~/
+
+# Let's use featureCounts to count the reads in genes.  We downloaded it, and it's in /project/bims6000/bin
+
+/project/bims6000/bin/featureCounts -O -t gene -g ID -a /project/bims6000/data/morning/ath_annotation.gff3 -o counts.txt mapped_hisat2/*.bam
 ~~~
 {: .language-bash}
 
@@ -180,3 +188,14 @@ Here is an explanation of the different arguments used:
 - `-g <string>`: Specify attribute type in GTF/GFF annotation. This GTF/GFF determines the name of the features.
 
 The output file `counts.txt` produced by featureCounts is a tab-delimited file that can be opened in a spreadsheet program like Excel.
+
+~~~
+# Let's view the counts.txt file using less
+
+less counts.txt
+
+# Let's view the counts.txt.summary file using less
+
+less counts.txt.summary
+~~~
+{: .language-bash}
