@@ -58,6 +58,32 @@ STAR
 
 we get a help message from the aligner. Success!
 
+There will always be situations where a tool of interest is not available as a module in Rivanna. For example, we will use `featureCounts`, which is part of the `subRead` suite, to count the number of reads assigned to genes. Let's check if `subRead` is available on Rivanna
+
+```bash
+module spider subread 
+```
+
+This should output
+
+```text
+Lmod has detected the following error:  Unable to find: "subread".
+```
+ 
+which implies that subread/featureCount is not available as a module. We have downloaded the subread package from `http://subread.sourceforge.net` and the tools are now available to us at `/project/bims6000/bin/`. We have to tell the shell to look for those tools in that directory. This can be done by updating the PATH as follows:
+
+```bash
+export PATH="/project/bims6000/bin:$PATH"
+```
+Now you are set to use `featureCounts`. Test that by typing on the shell
+
+```bash
+featureCounts
+```
+
+and you should see a help page. 
+
+
 ### R and R packages
 
 We have also installed the R packages we will need for this lesson in a directory "/project/bims6000/R". In order to tell R where to look for those packages, we will do the following on the command line (shell) 
@@ -92,8 +118,8 @@ We have also downloaded the various files that you are going to need for this le
 The following files can be found at /project/bims6000/data/morning/
 
 - **Arabidopsis_sample1/2/3/4.fq.gz**: A `FASTQ` file containing a sample sequenced mRNA-seq reads in the FASTQ format.
-- **AtChromosome1.fa.gz**: the gzipped chromosome 1 sequence of the Arabidopsis thaliana genome in `FASTA` format.  
-- **ath_annotation.gff3.gz**: the gzipped genome annotation of Arabidopsis thaliana for chromosome 1 in the `GFF3` format. This indicates the positions of genes, their exons and 5' or 3' UTR on the chromosome and is used to generate the gene counts.   
+- **AtChromosome1.fa**: the chromosome 1 sequence of the Arabidopsis thaliana genome in `FASTA` format.  
+- **ath_annotation.gff3**: the genome annotation of Arabidopsis thaliana for chromosome 1 in the `GFF3` format. This indicates the positions of genes, their exons and 5' or 3' UTR on the chromosome and is used to generate the gene counts.   
 - **adapters.fasta**: the Illumina adapter sequences used for read trimming using Trimmomatic. 
 {: .prereq}
 
