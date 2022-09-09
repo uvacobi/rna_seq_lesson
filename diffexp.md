@@ -450,7 +450,8 @@ AT1G01040 1811.62285 1800.221699 1874.910751 1689.85596 1592.43995 1698.27864 17
 
 ~~~
 normalised_counts_only_diff_genes <- normalized_counts %>%
-                                     as_tibble(rownames="genes") %>%                                                 filter(genes %in% diff_genes$genes) %>%
+                                     as_tibble(rownames="genes") %>%
+                                     filter(genes %in% diff_genes$genes) %>%
                                      column_to_rownames("genes")
 ~~~
 {: .language-r}
