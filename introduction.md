@@ -78,8 +78,8 @@ As mentioned previously, line 4 has characters encoding the quality of each nucl
 
 ~~~
 Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
-                   |         |         |         |         |
-    Quality score: 0........10........20........30........40
+                  |         |         |         |         |
+   Quality score: 0........10........20........30........40
 ~~~    
 {: .output}
 
