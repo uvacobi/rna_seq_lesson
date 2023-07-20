@@ -14,8 +14,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: RNA-seq analysis
-tagline: Fall, 2022
-description: Introduction to RNA-seq analysis, Fall 2022
+tagline: Fall, 2023
+description: Introduction to RNA-seq analysis, Fall 2023
 author: Stefan Bekiranov and Aakrosh Ratan
 baseurl: '/rna_seq_lesson' # the subpath of your site, e.g. /blog
 url: 'https://aakrosh.github.io' # the base hostname & protocol for your site, e.g. http://example.com
