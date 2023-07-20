@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Introduction to RNA-seq analysis, Fall 2022
+title: Introduction to RNA-seq analysis, Fall 2023
 nav_exclude: true
 ---
 
