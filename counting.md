@@ -17,7 +17,7 @@ The file begins with a **header**, which is optional. The header is used to desc
 
 <img src="../assets/images/sam_bam_1.png" width="600px" alt="alignment_star1">
 
-Additionally tags (or attribute) can be aded to each of of the lines. These tags give some aditional information on the alignment. The number and type of tags varies between different alinment tools and the settings within these tools. Here a list of tags that are commonly used.
+Additionally tags (or attribute) can be added to each of of the lines. These tags give some additional information on the alignment. The number and type of tags varies between different alignment tools and the settings within these tools. Here a list of tags that are commonly used.
 
 | Tag:Type |	Meaning |
 |----------|----------|
@@ -30,14 +30,14 @@ Additionally tags (or attribute) can be aded to each of of the lines. These tags
 | XN:i |	Number of ambiguous bases in the reference |
 | XM:i |	Number of mismatches in the alignment |
 | XO:i | Number of gap opens |
-| XG:i |	Number of gap extentions |
+| XG:i |	Number of gap extensions |
 | XT	 | Type: Unique/Repeat/N/Mate-sw |
 | XA:z | Alternative hits; format: (chr,pos,CIGAR,NM;) |
 | XS:i | Suboptimal alignment score |
 | XF:i | Support from forward/reverse alignment |
 |XE:i  | Number of supporting seeds |
 
-To start of we’ll have a look at how to use samtools to have a peak at the the contents of the bam files.
+To start of we’ll have a look at how to use samtools to have a peak at the contents of the bam files.
 
 As these file are binary you can not simply use:
 
@@ -62,13 +62,13 @@ SAMtools provides the following commands (in **bold**), each invoked as “samto
 The view command filters SAM or BAM formatted data. Using options and arguments it understands what data to select (possibly all of it) and passes only that data through. Input is usually a sam or bam file specified as an argument, but could be sam or bam data piped from any other command. Possible uses include extracting a subset of data into a new file, converting between BAM and SAM formats, and just looking at the raw file contents. The order of extracted reads is preserved.
 
 - **sort**
-The sort command sorts a BAM file based on its position in the reference, as determined by its alignment. The element + coordinate in the reference that the first matched base in the read aligns to is used as the key to order it by. [TODO: verify]. The sorted output is dumped to a new file by default, although it can be directed to stdout (using the -o option). As sorting is memory intensive and BAM files can be large, this command supports a sectioning mode (with the -m options) to use at most a given amount of memory and generate multiple output file. These files can then be merged to produce a complete sorted BAM file.
+Sort alignments by leftmost coordinates, by read name when -n is used, by tag contents with -t, or a minimiser-based collation order with -M. The sorted output is dumped to a new file by default, although it can be directed to stdout (using the -o option). As sorting is memory intensive and BAM files can be large, this command supports a sectioning mode (with the -m options) to use at most a given amount of memory and generate multiple output file. These files can then be merged to produce a complete sorted BAM file.
 
 - **index**
 The index command creates a new index file that allows fast look-up of data in a (sorted) SAM or BAM. Like an index on a database, the generated \*.sam.sai or \*.bam.bai file allows programs that can read it to more efficiently work with the data in the associated files.
 
 - **tview**
-The tview command starts an interactive ascii-based viewer that can be used to visualize how reads are aligned to specified small regions of the reference genome. Compared to a graphics based viewer like IGV,[3] it has few features. Within the view, it is possible to jumping to different positions along reference elements (using ‘g’) and display help information (‘?’).
+The tview command starts an interactive ASCII-based viewer that can be used to visualize how reads are aligned to specified small regions of the reference genome. Compared to a graphics based viewer like IGV,[3] it has few features. Within the view, it is possible to jumping to different positions along reference elements (using ‘g’) and display help information (‘?’).
 
 - **mpileup**
 The mpileup command produces a pileup format (or BCF) file giving, for each genomic coordinate, the overlapping read bases and indels at that position in the input BAM files(s). This can be used for SNP calling for example.
@@ -86,7 +86,7 @@ samtools view Arabidopsis_sample1.bam | head
 ~~~
 {: .language-bash}
 
-SAMtools will make the data readeble, this data is then piped through head to show the first 10 lines of the file.
+SAMtools will make the data readable, this data is then piped through head to show the first 10 lines of the file.
 
 ## 2.2 Counting and sorting
 

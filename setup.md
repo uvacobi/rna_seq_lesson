@@ -20,69 +20,11 @@ We will replace the `${account}` in the command with the name of the group we wi
 
 ### Software tools
 
-We have installed all the tools that will be required for this analysis on the Rivanna cluster. Rivanna uses [Environment Modules](http://modules.sourceforge.net) to let users use tools without having to install them. For example, let us say we want use `STAR` to align our sequences against a reference genome. If we type the following on the command line
-
-```bash
-STAR
-```
- 
-the shell will return with a message
-
-```text
--bash: STAR: command not found
-```
-
-The shell is informing us that it does not know if `STAR` is installed, or how to get to it. In order to check if `STAR` is available on Rivanna, we will request information about `STAR` by using the following command on the shell
-
-```bash
-module spider STAR
-```
-
-This informs us that Rivanna has versions 2.5.3a, 2.7.2b, and 2.7.9a for `STAR` available. If we want to use version 2.7.9a, we can next ask for the right way to load that particular version. We do that by using the following command on the shell
-
-```bash
-module spider star/2.7.9a
-```
-
-This command informs us of the modules that need to be loaded before `star/2.7.9a` can be loaded. Based on the response to the above command we can load `STAR` version 2.7.9a using the following on the command line
-
-```bash
-module load star/2.7.9a
-```
-
-Now if we type
-
-```bash
-STAR
-```
-
-we get a help message from the aligner. Success!
-
+We have installed all the tools that will be required for this analysis on the Rivanna cluster. Rivanna uses [Environment Modules](http://modules.sourceforge.net) to let users use tools without having to install them. 
 
 ### R and R packages
 
-We have also installed the R packages we will need for this lesson in a directory "/project/bims6000/R". In order to tell R where to look for those packages, we will do the following on the command line (shell) 
-
-```bash
-export R_LIBS=/project/bims6000/R
-```
-
-Now, we will use the modules to inform Rivanna that we want to use `R` version 4.1.1 by using the following command
-
-```bash
-module load gcc/7.1.0  openmpi/3.1.4 R/4.1.1
-```
-
-Now, when we type 
-
-```bash
-R
-```
-
-on the command line, we should see a prompt similar to this
-
-![prompt](../assets/images/prompt.png)
-
+We have also installed the R packages we will need for this lesson in a directory "/project/bims6000/R". 
 
 ### Data files
 

@@ -74,7 +74,7 @@ ls -l genomeIndex/
 
 ## 1.2 Align reads to reference genome
 
-In some tools like hisat2 creating the sequence alignment files (bam-files) is done in two steps. first the aligning it self. After that the alignment file will be filtered for instance to only contain the reads that actualy map to the genome. This is done with sam flags in samtools view (with the ‘-F 4’ all the unmapped reads will be removed). STAR on the other hand has a build in filter and also a sort function. So the output is ready to use for downstream tools.
+In some tools like hisat2 creating the sequence alignment files (bam-files) is done in two steps. First the aligning is done. After that the alignment file will be filtered for instance to only contain the reads that actually map to the genome. This is done with SAM flags in samtools view (with the ‘-F 4’ all the unmapped reads will be removed). STAR on the other hand has a build in filter and also a sort function. So the output is ready to use for downstream tools.
 
 First of course we will need to create a directory to output the alignment files
 
@@ -83,9 +83,9 @@ mkdir mapped
 ~~~
 {: .language-bash}
 
-Running STAR to align ( or map ) the reads and optionaly filter and sort them.
+Running STAR to align ( or map ) the reads and optionally filter and sort them.
 
-In contrast to most tools, STAR does not have a help function. running STAR -h or STAR –help will result in an error. For information on what arguments to use you can use have a look at the STAR manual..
+In contrast to most tools, STAR does not have a help function. Running STAR -h or STAR –help will result in an error. For information on what arguments to use you can use have a look at the STAR manual..
 
 Here are some examples of common used arguments.
 
@@ -135,7 +135,7 @@ less mapped/Arabidopsis_sample1_qcLog.final.out
  
 ## 1.3 Align reads to reference genome using hisat2
  
-Alternatively it is possible to map the reads using hisat2. This tools works simular to star and gives a simular output. The commands are just a bit different. 
+Alternatively it is possible to map the reads using hisat2. This tools works like star and gives a similar output. The commands are just a bit different. 
  
 ~~~
 # Let's create a new genomeIndex and mapped directory and load hisat2 and samtools

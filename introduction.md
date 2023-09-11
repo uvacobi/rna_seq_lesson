@@ -38,7 +38,7 @@ We will make use of a published experimental dataset from a study made on the sm
 
 The first step in the RNA-Seq workflow is to take the FASTQ files received from the sequencing facility and assess the quality of the sequencing reads.
 
-The FASTQ file format is the defacto file format for sequence reads generated from next-generation sequencing technologies. This file format evolved from FASTA in that it contains sequence data, but also contains quality information. Similar to FASTA, the FASTQ file begins with a header line. The difference is that the FASTQ header is denoted by a `@` character. For a single record (sequence read) there are four lines, each of which are described below:
+The FASTQ file format is the de facto file format for sequence reads generated from next-generation sequencing technologies. This file format evolved from FASTA in that it contains sequence data, but also contains quality information. Similar to FASTA, the FASTQ file begins with a header line. The difference is that the FASTQ header is denoted by a `@` character. For a single record (sequence read) there are four lines, each of which are described below:
 
 | Line |	Description |
 |------|-------------|
@@ -49,7 +49,7 @@ The FASTQ file format is the defacto file format for sequence reads generated fr
 
 ## 1.1 A first peek at our FASTQ files
 
-Several sequencing files are available in the /datasets/ folder as it contains 4 fastq files. The files are generaly quite big (they usualy contain up to 40 milion reads), so it’s a smart thing to keep them zipped as they are.
+Several sequencing files are available in the /datasets/ folder as it contains 4 fastq files. The files are generally quite big (they usually contain up to 40 million reads), so it’s a smart thing to keep them zipped as they are.
 
 ~~~
 # Let’s view the directory that contains the sequencing files (.fastq.gz) and other needed files e.g. genome reference sequence.
@@ -83,7 +83,7 @@ Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
 ~~~    
 {: .output}
 
-Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 30. The second base (A) has a quality of 32, etc.
+Using the quality encoding character legend, the first nucleotide in the read (C) is called with a quality score of 30. The second base (A) has a quality of 32, etc.
 
 Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and is calculated as:
 
@@ -100,7 +100,7 @@ These probability values are the results from the base calling algorithm and dep
 | 30 | 1 in 1000 | 99.9% |
 | 40 | 1 in 10,000 |	99.99% |
 
-Therefore, for the first nucleotide in the read (C), there is a 1 in 1000 chance that the base was called incorrectly. Also you can see that the second half of the read contains a lot of bases that have a more then 10% probabaility that the base is called incorrectly.
+Therefore, for the first nucleotide in the read (C), there is a 1 in 1000 chance that the base was called incorrectly. Also you can see that the second half of the read contains a lot of bases that have a more then 10% probability that the base is called incorrectly.
 
 Question: How many reads do these samples contain?
 
@@ -206,7 +206,7 @@ Upon opening the file Below we have provided a brief overview of interpretations
 
 - Sequence Duplication Levels: A distribution of duplicated sequences. In sequencing, we expect most reads to only occur once. If some sequences are occurring more than once, it might indicate enrichment bias (e.g. from PCR). If the samples are high coverage (or RNA-seq or amplicon), this might not be true.
 - Overrepresented sequences: A list of sequences that occur more frequently than would be expected by chance.
-- Adapter Content: a graph indicating where adapater sequences occur in the reads.
+- Adapter Content: a graph indicating where adapter sequences occur in the reads.
 
 <img src="../assets/images/fastqc8.png" width="400px" alt="fastqc8">
 
@@ -224,7 +224,7 @@ Does this summary differ from that for sample1?  If so, how?
 
 The first module gives the basic statistics for the sample. Generally it is a good idea to keep track of the total number of reads sequenced for each sample and to make sure the read length and %GC content is as expected.
 
-One of the most important analysis modules is the “Per base sequence quality” plot. This plot provides the distribution of quality scores at each position in the read across all reads. This plot can alert us to whether there were any problems occuring during sequencing and whether we might need to contact the sequencing facility.
+One of the most important analysis modules is the “Per base sequence quality” plot. This plot provides the distribution of quality scores at each position in the read across all reads. This plot can alert us to whether there were any problems occurring during sequencing and whether we might need to contact the sequencing facility.
 
 <img src="../assets/images/fastqc1.png" width="400px" alt="fastqc1">
 
@@ -232,7 +232,7 @@ The “Per sequence quality scores” plot gives you the average quality score o
 
 <img src="../assets/images/fastqc2.png" width="400px" alt="fastqc2">
 
-The next plot gives the “Per base sequence content”, which always gives a FAIL for RNA-seq data. This is because the first 10-12 bases result from the ‘random’ hexamer priming that occurs during RNA-seq library preparation. This priming is not as random as we might hope giving an enrichment in particular bases for these intial nucleotides.
+The next plot gives the “Per base sequence content”, which always gives a FAIL for RNA-seq data. This is because the first 10-12 bases result from the ‘random’ hexamer priming that occurs during RNA-seq library preparation. This priming is not as random as we might hope giving an enrichment in particular bases for these initial nucleotides.
 
 <img src="../assets/images/fastqc3.png" width="400px" alt="fastqc3">
 
@@ -304,7 +304,7 @@ cd ~/
 
 Before we will do the alignment we need to remove sequences of low quality and sequences that are to short (below 25 bases). Also in this case we will trim down long sequences to 100 bases, quality of the Ion-torrent reads drops the further it gets. When making use of illumina reads this is not as much of a problem and 3’-trimming would then be a waste of data.
 
-The trimming and quality filtering will be done with trimmomatic. In the programm the following arguments can be used.
+The trimming and quality filtering will be done with trimmomatic. In the program the following arguments can be used.
 
 | step              |	   meaning                          |
 |-------------------|-------------------------------------|
@@ -330,13 +330,13 @@ module load trimmomatic
 
 # To run trimmomatic on a single sample it looks something like this
 
-java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 1 /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz ~/trimmed/Arabidopsis_sample1_qc.fq ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 1 /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz ~/trimmed/Arabidopsis_sample1_qc.fq ILLUMINACLIP:/project/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
 ~~~
 {: .language-bash}
 
-Of course, we don’t want to do this for all the reads seperately so lets create a loop through all the fastq files.
+Of course, we don’t want to do this for all the reads separately so lets create a loop through all the fastq files.
 
-When doing the fastqc only input files needed to be specified. In this case both the input and a matching output filenames need to be given. this can be done with the help of ‘basename’
+When doing the fastqc only input files needed to be specified. In this case both the input and a matching output filenames need to be given. This can be done with the help of ‘basename’
 
 ~~~
 for infile in /project/bims6000/data/morning/*.fq.gz
@@ -352,7 +352,7 @@ done
 for infile in /project/bims6000/data/morning/*.fq.gz
 do
   outfile="$(basename $infile .fq.gz)"_qc.fq
-  echo "java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25"
+  echo "java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:/project/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25"
 done
 
 # If it all looks ok, rerun with out echo
@@ -360,7 +360,7 @@ done
 for infile in /project/bims6000/data/morning/*.fq.gz
 do
   outfile="$(basename $infile .fq.gz)"_qc.fq
-  java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+  java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:/project/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
 done
 ~~~
 {: .language-bash}
