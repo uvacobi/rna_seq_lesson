@@ -11,15 +11,14 @@ mathjax: true
 
 1. How to assess the quality of my RNA-Seq experiment at the sample-level
    - Using FastQC to perform quality checks on each sample fastq sequencing file.
-   - What are some count normalization methods? Why are RPKM, FPKM and TPM not adequate methods.
+   - What are some count normalization methods? Why are RPKM, FPKM and TPM not adequate?
    - Creating a PCA plot to visualise the grouping of samples in relation to the experimental factors being investigated.
 2. How to perform a differential expression analysis on RNA-Seq results using R
-   - Raw counts are used for differential expression not scaled counts.
    - Creating a DESeq2 object requires 3 items: the raw gene counts, the sample to condition correspondence and a formula for testing.
-   - How does the DESeq method works? What are the outputs obtained using DESeq2?
+   - How does the DESeq method works? 
    - What are the typical outputs that one can obtain from a differential gene expression analysis?
-   - A table of genes being differentially regulated between two conditions.
-   - A volcano plot shows the relationship between log2 fold change and the adjusted p-value for each gene.
+    - A table of genes being differentially regulated between two conditions.
+    - A volcano plot shows the relationship between log2 fold change and the adjusted p-value for each gene.
 3. How to go beyond a list of differential genes and interpret its biological meaning
    - By performing an over-representation analysis (ORA), one can find pathways or categories where differential genes are significantly more abundant.
    - By performing a gene set enrichment analysis (GSEA), one first ranks differentially expressed genes before comparing enrichment scores for whole pathways.
@@ -87,7 +86,7 @@ Using the quality encoding character legend, the first nucleotide in the read (C
 
 Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and is calculated as:
 
-$Q=−10 \times log_{10}(P)$
+$$Q=−10 \times log_{10}(P)$$
 
 where $P$ is the probability that a base call is erroneous.
 

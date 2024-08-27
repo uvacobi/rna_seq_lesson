@@ -18,6 +18,21 @@ ijob -c 2 --mem-per-cpu=6000 -A ${account} -p standard --time=08:00:00
 We will replace the `${account}` in the command with the name of the group we will specifically create for the course.
 
 
+### Working directory
+
+We will create a folder named `my_rna_seq_analysis` when we log onto Rivanna. Remember that you can use the following command to create the folder
+
+```bash
+mkdir my_rna_seq_analysis
+```
+
+Now that we have the folder, we will `cd` into it, and do all our analyses there
+
+```bash
+cd my_rna_seq_analysis
+```
+
+
 ### Software tools
 
 We have installed all the tools that will be required for this analysis on the Rivanna cluster. Rivanna uses [Environment Modules](http://modules.sourceforge.net) to let users use tools without having to install them. 
