@@ -28,11 +28,12 @@ mkdir rna_seq
 # move into that directory
 cd rna_seq
 
-# let's tell R where our R packages are located
+# let's tell R where our R packages are located. If you edited the ~/.Renviron
+# file during day 2, then you should be fine. If not, then you can do
 export R_LIBS=/project/bims6000/R
 
 # let's make sure R is available for us to use
-module load gcc/7.1.0  openmpi/3.1.4 R/4.1.1
+module load gcc/11.4.0  openmpi/4.1.4 R/4.3.1
 
 # let's load R
 R
