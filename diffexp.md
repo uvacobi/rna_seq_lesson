@@ -197,7 +197,7 @@ all_genes_results <- results(dds, contrast = c("infected",                      
 
 If we now compare the `res` and `all_genes_results` DESeqResults objects, they should be exactly the same and return a `TRUE` value.
 ~~~
-all_equal(res, all_genes_results)
+all_equal(res, as.data.frame(all_genes_results))
 ~~~
 {: .language-r}
 
