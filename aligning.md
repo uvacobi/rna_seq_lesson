@@ -150,7 +150,7 @@ module spider hisat2
 
 module load gcc/11.4.0
 
-module load hisat2
+module load openmpi/4.1.4 python/3.11.4 hisat2
 
 module load samtools
 
