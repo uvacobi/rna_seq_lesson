@@ -148,7 +148,7 @@ module spider hisat2
 
 # You will see that you have to load gcc/9.2.0 first before loading hisat2
 
-module load gcc/9.2.0
+module load gcc/11.4.0
 
 module load hisat2
 

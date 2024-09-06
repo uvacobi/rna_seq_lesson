@@ -166,11 +166,9 @@ fastqc -h
 
 For each of the samples there are two files. a .html and a .zip
 
-If we were working on our local computer, we’d be able to display each of these HTML files as a webpage.
+If we were working on our local computer, we’d be able to display each of these HTML files as a webpage. You could use [UVA OpenOnDemand](https://ood.hpc.virginia.edu/pun/sys/dashboard) to view the files, or we have to transfer the html files to our local computer and visualize them there.
 
-Instead, we have to transfer the html files to our local computer and visualize them there.
-
-If you have Unix/Linux running on your local computer, you can execute the following command:
+If you have Unix/Linux running on your local computer and want to proceed this way, you can execute the following command:
 
 ~~~
 scp -r [uva_compute_id]@rivanna.hpc.virginia.edu:/home/[uva_compute_id]/fastqc ~
