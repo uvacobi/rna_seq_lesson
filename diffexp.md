@@ -30,15 +30,32 @@ cd rna_seq
 
 # let's tell R where our R packages are located. If you edited the ~/.Renviron
 # file during day 2, then you should be fine. If not, then you can do
-export R_LIBS=/project/bims6000/R
+export R_LIBS=/standard/bims6000/R
 
 # let's make sure R is available for us to use
-module load gcc/11.4.0  openmpi/4.1.4 R/4.3.1
+module load goolf R/4.4.1
 
 # let's load R
 R
 ~~~
 {: .language-bash}
+
+Now let's make sure we are pointing to the directory that contains all the R libraries we want to use. We can check which locations are being used by R to look for libraries by typing the following in the R console
+
+~~~
+.libPaths()
+~~~
+{: .language-r}
+
+You should see an output similar to the following with `/sfs/ceph/standard/bims6000/R` being the first option where R looks for libraries.
+
+~~~
+[1] "/sfs/ceph/standard/bims6000/R"                                                                              
+[2] "/sfs/gpfs/tardis/home/nelle/R/goolf/4.4"                                                                    
+[3] "/sfs/gpfs/tardis/applications/202506/software/standard/mpi/gcc/11.4.0/openmpi/4.1.4/R/4.4.1/lib64/R/library"
+~~~
+{: .output}
+
 
 ## 2.1 Creating the DESeqDataSet object
 
@@ -50,7 +67,7 @@ library("DESeq2")
 library("tidyverse")
 
 # import the samples to conditions correspodence
-xp_design <- read.csv("/project/bims6000/data/afternoon/samples_to_conditions.csv",              
+xp_design <- read.csv("/standard/bims6000/data/afternoon/samples_to_conditions.csv",              
                       header = TRUE, 
                       stringsAsFactors = FALSE, 
                       colClasses = rep("character",4))
@@ -65,7 +82,7 @@ We then import the gene counting values and call it `raw_counts`. The gene names
 
 ~~~
 # Import the gene raw counts
-raw_counts <- read.csv("/project/bims6000/data/afternoon/raw_counts.csv", 
+raw_counts <- read.csv("/standard/bims6000/data/afternoon/raw_counts.csv", 
                        header = TRUE, 
                        stringsAsFactors = FALSE) %>% 
               column_to_rownames("Geneid")

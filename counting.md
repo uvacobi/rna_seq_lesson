@@ -169,13 +169,13 @@ The `featureCounts` program from the [Subread](http://subread.sourceforge.net/) 
 Depending on the downstream applications the choice is `gene`, `transcript` or `exon`. In this study we are just looking for differentially expressed genes so our feature of interest specified by the `-t` will be `gene`.
 
 ~~~
-# Let's cd back into our home directory
+# Let's cd back into our working directory which is ~/my_rna_seq_analysis
 
-cd ~/
+cd ~/my_rna_seq_analysis
 
-# Let's use featureCounts to count the reads in genes.  We downloaded it, and it's in /project/bims6000/bin
+# Let's use featureCounts to count the reads in genes.  We downloaded it, and it's in /standard/bims6000/bin
 
-/project/bims6000/bin/featureCounts -O -t gene -g ID -a /project/bims6000/data/morning/ath_annotation.gff3 -o counts.txt mapped_hisat2/*.bam
+/standard/bims6000/bin/featureCounts -O -t gene -g ID -a /standard/bims6000/data/morning/ath_annotation.gff3 -o counts.txt mapped_hisat2/*.bam
 ~~~
 {: .language-bash}
 

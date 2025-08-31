@@ -64,7 +64,7 @@ mkdir genomeIndex
 
 module load star
 
-STAR --runMode genomeGenerate --genomeDir genomeIndex --genomeFastaFiles /project/bims6000/data/morning/AtChromosome1.fa --runThreadN 2
+STAR --runMode genomeGenerate --genomeDir genomeIndex --genomeFastaFiles /standard/bims6000/data/morning/AtChromosome1.fa --runThreadN 2
 
 # The indexing should have produced 8 star index files. Use the following command to see if they’re really there.
 
@@ -156,7 +156,7 @@ module load samtools
 
 Just like with star the genome/chromosome needs to be indexed.
 
-hisat2-build -p 2 /project/bims6000/data/morning/AtChromosome1.fa genomeIndex_hisat2/AtChromosome1
+hisat2-build -p 2 /standard/bims6000/data/morning/AtChromosome1.fa genomeIndex_hisat2/AtChromosome1
 
 # Mapping is done in two steps. Hisat2 produces the alignments, samtools is used to compress them and write them to a file.
 

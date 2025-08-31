@@ -48,16 +48,16 @@ The FASTQ file format is the de facto file format for sequence reads generated f
 
 ## 1.1 A first peek at our FASTQ files
 
-Several sequencing files are available in the /datasets/ folder as it contains 4 fastq files. The files are generally quite big (they usually contain up to 40 million reads), so it’s a smart thing to keep them zipped as they are.
+Several sequencing files are available in the /standard/bims6000/data/morning folder as it contains 4 fastq files. The files are generally quite big (they usually contain up to 40 million reads), so it’s a smart thing to keep them zipped as they are.
 
 ~~~
 # Let’s view the directory that contains the sequencing files (.fastq.gz) and other needed files e.g. genome reference sequence.
 
-ls /project/bims6000/data/morning/
+ls /standard/bims6000/data/morning/
 
 # zcat is a simular function as cat but works on zipped files. With the use of this function we can have a look at the files without having to unzip them.
 
-zcat /project/bims6000/data/morning/Arabidopsis_sample2.fq.gz | head -n 20
+zcat /standard/bims6000/data/morning/Arabidopsis_sample2.fq.gz | head -n 20
 
 # This will show the first 20 lines of the file, containing 5 reads.
 ~~~
@@ -106,7 +106,7 @@ Question: How many reads do these samples contain?
 ~~~
 # Answer: To get the number of reads, get the number of lines and divide by 4.
 
-zcat /project/bims6000/data/morning/Arabidopsis_sample2.fq.gz | wc -l
+zcat /standard/bims6000/data/morning/Arabidopsis_sample2.fq.gz | wc -l
 
 # This gives 1,000,000 lines -> 250,000 reads.
 ~~~
@@ -130,11 +130,11 @@ module load fastqc
 
 # Running fastqc uses the following command
 
-fastqc -o fastqc /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz
+fastqc -o fastqc /standard/bims6000/data/morning/Arabidopsis_sample1.fq.gz
 
 # Of course we don’t want to do this for all the samples seperately so we can loop through the list of samples and run them all sequentially. Using echo, you can start off with a “dry run”:
 
-for filename in /project/bims6000/data/morning/*.fq.gz
+for filename in /standard/bims6000/data/morning/*.fq.gz
 do
   echo fastqc -o fastqc $filename
 done
@@ -145,7 +145,7 @@ done
 
 # If it looks good remove the echo and go for it.
 
-for filename in /project/bims6000/data/morning/*.fq.gz
+for filename in /standard/bims6000/data/morning/*.fq.gz
 do
   fastqc -o fastqc $filename
 done
@@ -166,22 +166,7 @@ fastqc -h
 
 For each of the samples there are two files. a .html and a .zip
 
-If we were working on our local computer, we’d be able to display each of these HTML files as a webpage. You could use [UVA OpenOnDemand](https://ood.hpc.virginia.edu/pun/sys/dashboard) to view the files, or we have to transfer the html files to our local computer and visualize them there.
-
-If you have Unix/Linux running on your local computer and want to proceed this way, you can execute the following command:
-
-~~~
-scp -r [uva_compute_id]@rivanna.hpc.virginia.edu:/home/[uva_compute_id]/fastqc ~
-
-# Enter your Netbadge password and the fastqc directory and files contained in it will transfer to your local home directory.
-~~~
-{: .language-bash}
-
-If you're running Windows, you can also use `scp` within MobaXterm or PuTTY to transfer the files.
-
-Or, you can go to the following [site](https://rivanna-portal.hpc.virginia.edu/pun/sys/dashboard).
-
-Click on Files -> Home Directory and drag and drop the fastqc folder to your local computer.
+If we were working on our local computer, we’d be able to display each of these HTML files as a webpage. Since these are on the cluster, we will use [UVA OpenOnDemand](https://ood.hpc.virginia.edu/pun/sys/dashboard) to go to the `Home Directory` on the `Files` tab, then click inside the `my_rna_seq_analysis` directory and then download the `fastqc` directory to the local computer. 
 
 Open Arabidopsis_sample1_fastqc.html by clicking on it.  It should show up on your default browser.
 
@@ -291,9 +276,9 @@ less Arabidopsis_sample1_fastqc/summary.txt
 
 cat */summary.txt > fastqc_summaries.txt
 
-# Let's cd back to our home dirctory
+# Let's cd back to our working directory, which is ~/my_rna_seq_analysis
 
-cd ~/
+cd ~/my_rna_seq_analysis
 ~~~
 {: .language-bash}
 
@@ -327,7 +312,7 @@ module load trimmomatic
 
 # To run trimmomatic on a single sample it looks something like this
 
-java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 1 /project/bims6000/data/morning/Arabidopsis_sample1.fq.gz ~/trimmed/Arabidopsis_sample1_qc.fq ILLUMINACLIP:/project/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 1 /standard/bims6000/data/morning/Arabidopsis_sample1.fq.gz ~/trimmed/Arabidopsis_sample1_qc.fq ILLUMINACLIP:/standard/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
 ~~~
 {: .language-bash}
 
@@ -336,7 +321,7 @@ Of course, we don’t want to do this for all the reads separately so lets creat
 When doing the fastqc only input files needed to be specified. In this case both the input and a matching output filenames need to be given. This can be done with the help of ‘basename’
 
 ~~~
-for infile in /project/bims6000/data/morning/*.fq.gz
+for infile in /standard/bims6000/data/morning/*.fq.gz
 do
  echo inputfile $infile
  outfile="$(basename $infile .fq.gz)"_qc.fq
@@ -346,18 +331,18 @@ done
 
 # Next we can start writing the trimmomatic loop. Again starting with a dry run with echo.
 
-for infile in /project/bims6000/data/morning/*.fq.gz
+for infile in /standard/bims6000/data/morning/*.fq.gz
 do
   outfile="$(basename $infile .fq.gz)"_qc.fq
-  echo "java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:/project/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25"
+  echo "java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:/standard/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25"
 done
 
 # If it all looks ok, rerun with out echo
 
-for infile in /project/bims6000/data/morning/*.fq.gz
+for infile in /standard/bims6000/data/morning/*.fq.gz
 do
   outfile="$(basename $infile .fq.gz)"_qc.fq
-  java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:/project/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
+  java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar SE -phred33 -threads 2 $infile ~/trimmed/$outfile ILLUMINACLIP:/standard/bims6000/data/morning/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25
 done
 ~~~
 {: .language-bash}

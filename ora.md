@@ -125,7 +125,7 @@ library("biomaRt")  # only use to remove cache bug
 
 If not done yet, load the table of differential genes.
 ~~~
-diff_genes <- read_delim(file = "/project/bims6000/data/afternoon/differential_genes.csv", delim = ",")
+diff_genes <- read_delim(file = "/standard/bims6000/data/afternoon/differential_genes.csv", delim = ",")
 ~~~
 {: .language-r}
 
@@ -225,7 +225,7 @@ To perform the ORA within R, we will use the [clusterProfiler Bioconductor packa
 First, we need to annotate both genes that make up our "universe" and the genes that were identified as differentially expressed.
 ~~~
 # building the universe!
-all_arabidopsis_genes <- read.csv("/project/bims6000/data/afternoon/raw_counts.csv", header = TRUE, stringsAsFactors = FALSE)[,1] # directly selects the gene column
+all_arabidopsis_genes <- read.csv("/standard/bims6000/data/afternoon/raw_counts.csv", header = TRUE, stringsAsFactors = FALSE)[,1] # directly selects the gene column
 
 # we want the correspondence of TAIR/Ensembl symbols with NCBI Entrez gene ids
 attributes_to_retrieve = c("tair_symbol", "uniprotswissprot","entrezgene_id")
