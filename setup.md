@@ -59,7 +59,7 @@ The following files can be found at /standard/bims6000/data/morning/
 
 **What you need for the differential expression and enrichment analysis**
 
-The following files can be found at /project/bims6000/data/afternoon
+The following files can be found at /standard/bims6000/data/afternoon
 
 - **Counts**: A `raw_counts.csv` dataframe of the sample raw counts. It is a tab separated file therefore data are in tabulated separated columns.
 - **Samples to experimental conditions**: the `samples_to_conditions.csv` dataframe indicates the correspondence between samples and experimental conditions (e.g. control, treated).  
