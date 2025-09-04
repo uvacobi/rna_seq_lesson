@@ -52,7 +52,7 @@ all_arabidopsis_genes_annotated$entrezgene_id = as.character(all_arabidopsis_gen
 GSEA tests whether a pre-defined set of genes (ex: those belonging to a specific GO term or KEGG pathway) show up more frequently than expected by chance at the top or bottom of a sorted gene list from our experiment. Let's sort the genes in our experiment based on log-fold changes.
 
 ~~~
-gene_list <- deseq_results %>% as_tibble(rownames="gene") %>% left_join(all_arabidopsis_genes_annotated, by=c("gene"="ensembl_gene_id")) %>% dplyr::select(entrezgene_id, log2FoldChange) %>% na.omit() %>% arrange(desc(log2FoldChange)) %>% deframe()
+gene_list <- deseq_results %>% as_tibble(rownames="gene") %>% left_join(all_arabidopsis_genes_annotated, by=c("gene"="ensembl_gene_id")) %>% dplyr::select(entrezgene_id, log2FoldChange) %>% na.omit() %>% group_by(entrezgene_id) %>% summarise(log2FoldChange = mean(log2FoldChange)) %>% arrange(desc(log2FoldChange)) %>% deframe()
 ~~~
 {: language-r}
 
