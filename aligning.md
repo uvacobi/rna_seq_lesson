@@ -64,9 +64,9 @@ mkdir genomeIndex
 
 module load star
 
-STAR --runMode genomeGenerate --genomeDir genomeIndex --genomeFastaFiles /standard/bims6000/data/morning/AtChromosome1.fa --runThreadN 2
+STAR --runMode genomeGenerate --genomeDir genomeIndex --genomeSAindexNbases 11 --genomeFastaFiles /standard/bims6000/data/morning/AtChromosome1.fa --runThreadN 2
 
-# The indexing should have produced 8 star index files. Use the following command to see if they’re really there.
+# The indexing should have produced 9 files, including a log file (Log.out). Use the following command to see if they’re really there.
 
 ls -l genomeIndex/
 ~~~
@@ -135,7 +135,7 @@ less mapped/Arabidopsis_sample1_qcLog.final.out
  
 ## 1.3 Align reads to reference genome using hisat2
  
-Alternatively it is possible to map the reads using hisat2. This tools works like star and gives a similar output. The commands are just a bit different. 
+**Alternatively**, it is possible to map the reads using hisat2. This tools works like star and gives a similar output. The commands are just a bit different. **You do not have to run HISAT2 if you ran STAR**
  
 ~~~
 # Let's create a new genomeIndex and mapped directory and load hisat2 and samtools
@@ -146,7 +146,7 @@ mkdir genomeIndex_hisat2
 
 module spider hisat2
 
-# You will see that you have to load gcc/9.2.0 first before loading hisat2
+# You will see that you have to load gcc/11.4.0 first before loading hisat2
 
 module load gcc/11.4.0
 
