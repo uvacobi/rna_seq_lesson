@@ -135,7 +135,7 @@ less mapped/Arabidopsis_sample1_qcLog.final.out
  
 ## 1.3 Align reads to reference genome using hisat2
  
-**Alternatively**, it is possible to map the reads using hisat2. This tools works like star and gives a similar output. The commands are just a bit different. **You do not have to run HISAT2 if you ran STAR**
+It is also possible to map the reads using hisat2. This tools works like STAR and gives a similar output. The commands are just a bit different. 
  
 ~~~
 # Let's create a new genomeIndex and mapped directory and load hisat2 and samtools
