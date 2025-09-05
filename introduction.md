@@ -118,7 +118,7 @@ zcat /standard/bims6000/data/morning/Arabidopsis_sample2.fq.gz | wc -l
 
 We will create the quality reports of the reads that were downloaded.
 
-First, we need to make an output directory for the fastqc results to be stored. This we want to do in the ‘home’ directory that contains all the needed files.
+First, we need to make an output directory for the fastqc results to be stored. This we want to do in the ‘home/my_rna_seq_analysis’ directory that contains all the needed files.
 
 ~~~
 # create a new directory
