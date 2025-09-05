@@ -158,7 +158,7 @@ done
 
 fastqc -h
 
-# But if all went right, the FastQC program will have created several new files within our /home/fastqc directory.
+# But if all went right, the FastQC program will have created several new files within our /home/my_rna_seq_analysis/fastqc directory.
 ~~~
 {: .language-bash}
 
